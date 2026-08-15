@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface CountdownProps {
   targetDate: number; // Unix ms timestamp
   caption: string;
+  theme?: string;
+  createdAt?: number; // timestamp when page was created
 }
 
 interface TimeLeft {
@@ -15,8 +17,8 @@ interface TimeLeft {
   secs: number;
 }
 
-function calcTimeLeft(target: number): TimeLeft {
-  const diff = Math.max(0, target - Date.now());
+function calcTimeLeft(target: number, referenceTime: number = Date.now()): TimeLeft {
+  const diff = Math.abs(target - referenceTime);
   return {
     days: Math.floor(diff / (1000 * 60 * 60 * 24)),
     hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -96,15 +98,21 @@ function FlipDigit({ value, label }: { value: number; label: string }) {
   );
 }
 
-export default function Countdown({ targetDate, caption }: CountdownProps) {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calcTimeLeft(targetDate));
+export default function Countdown({ targetDate, caption, theme, createdAt }: CountdownProps) {
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => {
+    const refTime = (theme === 'love' && createdAt) ? createdAt : Date.now();
+    return calcTimeLeft(targetDate, refTime);
+  });
 
   useEffect(() => {
+    if (theme === 'love') {
+      return;
+    }
     const interval = setInterval(() => {
       setTimeLeft(calcTimeLeft(targetDate));
     }, 1000);
     return () => clearInterval(interval);
-  }, [targetDate]);
+  }, [targetDate, theme]);
 
   const formattedDate = new Date(targetDate).toLocaleDateString('en-IN', {
     day: 'numeric',

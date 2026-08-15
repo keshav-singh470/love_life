@@ -226,6 +226,8 @@ export default function PageViewer({ params }: PageViewerProps) {
             <Countdown
               targetDate={page.countdownTargetDate}
               caption={page.countdownCaption || 'until the day we finally meet again.'}
+              theme={page.theme}
+              createdAt={page.createdAt ?? undefined}
             />
           )}
 
