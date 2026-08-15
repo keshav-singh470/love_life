@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design Tokens
+   ============================================================ */
+:root {
+  --bg-from: #fdf3f0;
+  --bg-to: #f4dde2;
+  --ink: #3a1f2b;
+  --wine: #8a2f4c;
+  --gold: #c9973f;
+  --paper: #fffaf6;
+  --muted: #5a3545;
+
+  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-body: 'Karla', 'Inter', system-ui, sans-serif;
+  --font-script: 'Petit Formal Script', cursive;
+}
+
+/* ============================================================
+   Base Reset
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(160deg, var(--bg-from) 0%, var(--bg-to) 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Section spacing
+   ============================================================ */
+section {
+  position: relative;
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--ink);
+}
+
+/* ============================================================
+   Scrollbar styling
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(138, 47, 76, 0.25);
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Input focus ring
+   ============================================================ */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(138, 47, 76, 0.25);
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
